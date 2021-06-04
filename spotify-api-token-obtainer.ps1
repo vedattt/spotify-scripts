@@ -28,9 +28,9 @@ Start-Process "https://developer.spotify.com/dashboard/"
 
 Write-Confirm "Press ENTER to confirm that you've created a new app..."
 
-Set-Clipboard -Value "https://google.com/"
-Write-Host -ForegroundColor Cyan "`n`nThe URL to Google's homepage has just been copied to your clipboard."
-Write-Host "On your app's page, under 'Edit Settings', add a 'Redirect URI' by pasting in the contents of your clipboard (Google URL)."
+Set-Clipboard -Value "https://example.com/"
+Write-Host -ForegroundColor Cyan "`n`nThe URL to example.com has just been copied to your clipboard."
+Write-Host "On your app's page, under 'Edit Settings', add a 'Redirect URI' by pasting in the contents of your clipboard (the URL)."
 Write-Host "Save the settings once you've done that."
 
 Write-Confirm "Press ENTER to confirm you've saved the Redirect URI..."
@@ -40,12 +40,12 @@ $ClientId = Read-Host "Enter your 'Client ID'"
 $ClientSecret = Read-Host "Enter your 'Client Secret'"
 
 Write-Host -ForegroundColor Cyan "`n`nYou are about to be directed to your browser to confirm that you authorize your app to make changes to your account."
-Write-Host "Once you've accepted and are redirected to Google, pay attention to your address bar."
+Write-Host "Once you've accepted and are redirected to example.com, pay attention to your address bar."
 Write-Host "The URL will now contain a query string with a key named 'code'."
 Write-Host "Copy this key. (Everything coming AFTER the ?code= part)"
 
 Write-Confirm "Press ENTER to continue to your internet browser..."
-Start-Process "https://accounts.spotify.com/en/authorize?client_id=$ClientId&response_type=code&redirect_uri=https:%2F%2Fgoogle.com%2F&scope=user-library-read%20user-library-modify%20user-read-currently-playing"
+Start-Process "https://accounts.spotify.com/en/authorize?client_id=$ClientId&response_type=code&redirect_uri=https:%2F%2Fexample.com%2F&scope=user-library-read%20user-library-modify%20user-read-currently-playing"
 # The URL above declares the scopes your API token will be given. Modify to your liking if need be.
 
 Write-Confirm "Press ENTER to confirm that you've copied the code..."
@@ -59,7 +59,7 @@ $RefreshToken = (
     -Body @{
         grant_type = "authorization_code"; 
         code = $AuthCode; 
-        redirect_uri = "https://google.com/"; 
+        redirect_uri = "https://example.com/"; 
         client_id = $ClientId; 
         client_secret = $ClientSecret 
     }
